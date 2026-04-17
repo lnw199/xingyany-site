@@ -1,16 +1,922 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Xingyany</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>星言云科技｜基于深圳，服务全球</title>
+  <meta name="description" content="星言云科技立足深圳，服务全球，围绕企业出海、全球网络、AI 接入、数据安全与信息安全，为企业客户提供稳定、高效、可信的数字基础设施与解决方案。" />
+  <meta name="keywords" content="星言云科技, 企业出海, AI接入, 跨境SD-WAN, 数据安全, 信息安全, WATI, 深圳, 全球网络" />
+  <meta name="theme-color" content="#07111f" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700&family=Noto+Sans+SC:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/tailwindcss/2.2.19/tailwind.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@latest/dist/mermaid.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #f2f7fc;
+      --bg-soft: rgba(255,255,255,0.72);
+      --card: rgba(255,255,255,0.84);
+      --text: #081121;
+      --muted: #52627d;
+      --border: rgba(15,23,42,0.08);
+      --primary: #2563eb;
+      --cyan: #06b6d4;
+      --violet: #6366f1;
+      --shadow: 0 20px 50px rgba(15,23,42,0.08);
+      --hero-glow:
+        radial-gradient(circle at 12% 18%, rgba(37,99,235,.18), transparent 24%),
+        radial-gradient(circle at 85% 25%, rgba(6,182,212,.15), transparent 20%),
+        radial-gradient(circle at 60% 86%, rgba(99,102,241,.12), transparent 22%);
+    }
+
+    .dark {
+      --bg: #040c17;
+      --bg-soft: rgba(8,15,27,0.72);
+      --card: rgba(10,18,32,0.82);
+      --text: #e7eefc;
+      --muted: #9fb0c8;
+      --border: rgba(148,163,184,0.12);
+      --primary: #60a5fa;
+      --cyan: #22d3ee;
+      --violet: #818cf8;
+      --shadow: 0 28px 70px rgba(0,0,0,0.38);
+      --hero-glow:
+        radial-gradient(circle at 12% 18%, rgba(96,165,250,.16), transparent 24%),
+        radial-gradient(circle at 85% 25%, rgba(34,211,238,.14), transparent 20%),
+        radial-gradient(circle at 60% 86%, rgba(129,140,248,.11), transparent 22%);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(37,99,235,0.05), transparent 28%),
+        linear-gradient(180deg, rgba(6,182,212,0.03), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      transition: background-color .3s ease, color .3s ease;
+      overflow-x: hidden;
+    }
+
+    .font-serif-cn { font-family: "Noto Serif SC", serif; }
+    .font-sans-cn { font-family: "Noto Sans SC", sans-serif; }
+
+    .glass {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #60a5fa 0%, #22d3ee 42%, #818cf8 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--hero-glow);
+      pointer-events: none;
+    }
+
+    .grid-pattern {
+      background-image:
+        linear-gradient(rgba(148,163,184,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148,163,184,0.08) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.85), transparent);
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.85), transparent);
+    }
+
+    .nav-link {
+      position: relative;
+      color: var(--muted);
+      transition: color .25s ease;
+    }
+
+    .nav-link:hover { color: var(--text); }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #60a5fa, #22d3ee);
+      transition: width .25s ease;
+    }
+
+    .nav-link:hover::after { width: 100%; }
+
+    .tag {
+      border: 1px solid rgba(96,165,250,0.22);
+      background: rgba(96,165,250,0.08);
+      color: var(--text);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb, #06b6d4);
+      color: #fff;
+      box-shadow: 0 14px 34px rgba(37,99,235,.24);
+      transition: all .25s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 38px rgba(37,99,235,.28);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      transition: all .25s ease;
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      border-color: rgba(96,165,250,.36);
+      box-shadow: 0 14px 30px rgba(37,99,235,.10);
+    }
+
+    .hover-lift {
+      transition: transform .32s ease, box-shadow .32s ease, border-color .32s ease;
+    }
+
+    .hover-lift:hover {
+      transform: translateY(-6px);
+      border-color: rgba(96,165,250,.34);
+      box-shadow: 0 22px 52px rgba(15,23,42,.14);
+    }
+
+    .dark .hover-lift:hover {
+      box-shadow: 0 22px 52px rgba(0,0,0,.34);
+    }
+
+    .anchor-offset { scroll-margin-top: 100px; }
+
+    .section-title { letter-spacing: 0.01em; }
+
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-orb {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(36px);
+      opacity: .44;
+      pointer-events: none;
+      animation: floatY 10s ease-in-out infinite;
+    }
+
+    .orb-a {
+      width: 260px;
+      height: 260px;
+      top: 8%;
+      right: 8%;
+      background: rgba(37,99,235,.18);
+    }
+
+    .orb-b {
+      width: 170px;
+      height: 170px;
+      left: 4%;
+      bottom: 12%;
+      background: rgba(6,182,212,.16);
+      animation-delay: -2s;
+    }
+
+    .orb-c {
+      width: 110px;
+      height: 110px;
+      right: 26%;
+      bottom: 18%;
+      background: rgba(129,140,248,.18);
+      animation-delay: -4s;
+    }
+
+    @keyframes floatY {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-18px); }
+    }
+
+    .hero-panel {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(96,165,250,.08), transparent 34%),
+        linear-gradient(225deg, rgba(34,211,238,.06), transparent 32%);
+      pointer-events: none;
+    }
+
+    .logo-chip {
+      border: 1px solid var(--border);
+      background: rgba(148,163,184,0.05);
+      transition: all .25s ease;
+    }
+
+    .logo-chip:hover {
+      transform: translateY(-3px);
+      border-color: rgba(96,165,250,.32);
+      box-shadow: 0 14px 34px rgba(37,99,235,.10);
+    }
+
+    .stat-line {
+      height: 1px;
+      background: linear-gradient(90deg, rgba(96,165,250,.4), rgba(34,211,238,.12), transparent);
+    }
+
+    .mermaid {
+      background: transparent !important;
+    }
+
+    .contact-tile {
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border: 1px solid var(--border);
+    }
+
+    @media (max-width: 768px) {
+      .hero-orb { display: none; }
+    }
+  </style>
 </head>
-<body>
-  <div class="container">
-    <h1>欢迎来到 xingyany.com</h1>
-    <p>这是我的第一个测试页面。</p>
-    <p>网站正在建设中，敬请期待。</p>
-  </div>
+<body class="font-sans-cn antialiased">
+  <header class="fixed top-0 inset-x-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+      <div class="glass rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between">
+        <a href="#home" class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center text-white" style="background: linear-gradient(135deg, #2563eb, #06b6d4);">
+            <i class="fa-solid fa-globe"></i>
+          </div>
+          <div>
+            <div class="font-semibold text-base sm:text-lg">星言云科技</div>
+            <div class="text-xs" style="color: var(--muted);">Based in Shenzhen · Serving Global</div>
+          </div>
+        </a>
+
+        <nav class="hidden lg:flex items-center space-x-7 text-sm">
+          <a href="#about" class="nav-link">关于我们</a>
+          <a href="#products" class="nav-link">产品与能力</a>
+          <a href="#solutions" class="nav-link">解决方案</a>
+          <a href="#industries" class="nav-link">行业场景</a>
+          <a href="#whyus" class="nav-link">为什么选择我们</a>
+          <a href="#partners" class="nav-link">合作生态</a>
+          <a href="#contact" class="nav-link">联系我们</a>
+        </nav>
+
+        <div class="flex items-center space-x-2">
+          <button id="themeToggle" class="btn-secondary rounded-xl px-3 py-2 text-sm" aria-label="切换深浅模式">
+            <i class="fa-regular fa-moon mr-1"></i><span class="hidden sm:inline">主题</span>
+          </button>
+          <button id="mobileMenuBtn" class="lg:hidden btn-secondary rounded-xl px-3 py-2 text-sm" aria-label="打开菜单">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="hidden mt-3 glass rounded-2xl p-4 lg:hidden">
+        <div class="grid grid-cols-2 gap-3 text-sm">
+          <a href="#about" class="nav-link">关于我们</a>
+          <a href="#products" class="nav-link">产品与能力</a>
+          <a href="#solutions" class="nav-link">解决方案</a>
+          <a href="#industries" class="nav-link">行业场景</a>
+          <a href="#whyus" class="nav-link">为什么选择我们</a>
+          <a href="#partners" class="nav-link">合作生态</a>
+          <a href="#contact" class="nav-link">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="home" class="anchor-offset relative min-h-screen flex items-center overflow-hidden hero-bg">
+    <div class="absolute inset-0 grid-pattern"></div>
+    <div class="hero-orb orb-a"></div>
+    <div class="hero-orb orb-b"></div>
+    <div class="hero-orb orb-c"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-20 relative z-10">
+      <div class="grid lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-7 fade-in-up">
+          <div class="inline-flex items-center px-4 py-2 rounded-full tag text-xs sm:text-sm mb-6">
+            <i class="fa-solid fa-wave-square mr-2 text-cyan-400"></i>
+            全球连接 · AI 接入 · 数据安全 · 信息安全
+          </div>
+
+          <h1 class="font-serif-cn text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight tracking-tight">
+            面向全球业务的
+            <br class="hidden sm:block" />
+            <span class="gradient-text">数字连接与安全智能底座</span>
+          </h1>
+
+          <p class="mt-6 text-base sm:text-lg lg:text-xl leading-8 max-w-3xl" style="color: var(--muted);">
+            星言云科技立足深圳，服务全球企业客户，
+            围绕企业出海、全球网络、AI 接入、数据安全与信息安全，
+            提供更稳定、更高效、更可信的一体化数字基础设施能力，
+            帮助企业打通连接、协同、沟通与智能化增长的关键链路。
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="#products" class="btn-primary px-6 py-3 rounded-xl font-medium">查看能力矩阵</a>
+            <a href="#contact" class="btn-secondary px-6 py-3 rounded-xl font-medium">商务联系</a>
+          </div>
+
+          <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div class="card rounded-2xl p-4">
+              <div class="text-xs uppercase tracking-widest text-blue-400">GLOBAL NETWORK</div>
+              <div class="mt-2 font-semibold">跨境连接</div>
+              <div class="text-sm mt-1" style="color: var(--muted);">稳定访问全球云与应用</div>
+            </div>
+            <div class="card rounded-2xl p-4">
+              <div class="text-xs uppercase tracking-widest text-cyan-400">AI ENABLEMENT</div>
+              <div class="mt-2 font-semibold">AI 接入治理</div>
+              <div class="text-sm mt-1" style="color: var(--muted);">多模型统一接入与管控</div>
+            </div>
+            <div class="card rounded-2xl p-4">
+              <div class="text-xs uppercase tracking-widest text-indigo-400">DATA & INFOSEC</div>
+              <div class="mt-2 font-semibold">安全体系</div>
+              <div class="text-sm mt-1" style="color: var(--muted);">数据与信息安全并重</div>
+            </div>
+            <div class="card rounded-2xl p-4">
+              <div class="text-xs uppercase tracking-widest text-emerald-400">GLOBAL GROWTH</div>
+              <div class="mt-2 font-semibold">客户沟通</div>
+              <div class="text-sm mt-1" style="color: var(--muted);">海外触达与自动化运营</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 fade-in-up">
+          <div class="card hero-panel rounded-3xl p-5 sm:p-6">
+            <div class="flex items-center justify-between mb-5">
+              <div>
+                <div class="text-sm font-medium text-blue-400">Capability Architecture</div>
+                <div class="text-xl font-semibold mt-1">业务能力架构</div>
+              </div>
+              <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-white" style="background: linear-gradient(135deg, #2563eb, #06b6d4);">
+                <i class="fa-solid fa-sitemap"></i>
+              </div>
+            </div>
+
+            <div class="mermaid text-sm">
+graph TD
+  A[星言云科技] --> B[AI 接入]
+  A --> C[全球网络]
+  A --> D[数据安全]
+  A --> E[信息安全]
+  A --> F[全球客户沟通]
+  A --> G[企业出海方案]
+  B --> B1[AI 网关]
+  B --> B2[多模型调用]
+  B --> B3[权限与成本管理]
+  C --> C1[跨境 SD-WAN]
+  C --> C2[全球访问优化]
+  C --> C3[多分支互联]
+  D --> D1[数据保护]
+  D --> D2[权限控制]
+  E --> E1[终端与边界安全]
+  E --> E2[身份与访问管理]
+  F --> F1[WhatsApp / WATI]
+  F --> F2[营销自动化]
+  G --> G1[跨境电商]
+  G --> G2[海外办公]
+  G --> G3[全球协同]
+            </div>
+
+            <div class="mt-5">
+              <div class="stat-line mb-4"></div>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="rounded-2xl p-4" style="background: rgba(37,99,235,0.08); border: 1px solid rgba(96,165,250,0.14);">
+                  <div class="text-xs mb-1" style="color: var(--muted);">服务逻辑</div>
+                  <div class="font-semibold">连接、智能、安全、增长</div>
+                </div>
+                <div class="rounded-2xl p-4" style="background: rgba(6,182,212,0.08); border: 1px solid rgba(34,211,238,0.14);">
+                  <div class="text-xs mb-1" style="color: var(--muted);">价值目标</div>
+                  <div class="font-semibold">让全球业务更稳、更快、更可控</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-16 fade-in-up">
+        <div class="grid md:grid-cols-3 gap-5">
+          <div class="card rounded-3xl p-6">
+            <div class="text-sm text-blue-400">01 / Based in Shenzhen</div>
+            <div class="mt-3 text-2xl font-semibold">立足深圳的产业理解</div>
+            <p class="mt-3 leading-7" style="color: var(--muted);">
+              贴近跨境、电商、制造、科技与全球化团队的一线需求。
+            </p>
+          </div>
+          <div class="card rounded-3xl p-6">
+            <div class="text-sm text-cyan-400">02 / Serving Global</div>
+            <div class="mt-3 text-2xl font-semibold">服务全球化业务场景</div>
+            <p class="mt-3 leading-7" style="color: var(--muted);">
+              覆盖海外办公、全球沟通、国际访问、AI 应用与安全治理。
+            </p>
+          </div>
+          <div class="card rounded-3xl p-6">
+            <div class="text-sm text-indigo-400">03 / Trusted Infrastructure</div>
+            <div class="mt-3 text-2xl font-semibold">构建可信数字底座</div>
+            <p class="mt-3 leading-7" style="color: var(--muted);">
+              兼顾网络质量、数据安全、信息安全与企业长期可扩展能力。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="anchor-offset py-20 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-5 fade-in-up">
+          <div class="inline-flex items-center px-3 py-1 rounded-full tag text-sm mb-4">
+            <i class="fa-solid fa-building mr-2 text-blue-400"></i>关于我们
+          </div>
+          <h2 class="section-title font-serif-cn text-3xl sm:text-4xl font-semibold leading-tight">
+            基于深圳的企业服务能力，
+            <span class="gradient-text">面向全球业务持续延展</span>
+          </h2>
+          <p class="mt-6 leading-8 text-base sm:text-lg" style="color: var(--muted);">
+            星言云科技围绕企业出海与数字化升级过程中的关键问题，
+            提供全球网络、AI 接入、数据安全、信息安全与全球客户沟通能力。
+            我们强调的不只是技术部署，而是帮助企业建立一个可落地、可治理、可持续演进的全球数字底座。
+          </p>
+        </div>
+
+        <div class="lg:col-span-7 grid sm:grid-cols-2 gap-5 fade-in-up">
+          <div class="card rounded-3xl p-6 hover-lift">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-white mb-4" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);">
+              <i class="fa-solid fa-earth-asia"></i>
+            </div>
+            <h3 class="text-xl font-semibold">全球业务视角</h3>
+            <p class="mt-3 leading-7" style="color: var(--muted);">
+              从网络、沟通、协同、AI 与安全的整体链路理解企业全球化经营。
+            </p>
+          </div>
+
+          <div class="card rounded-3xl p-6 hover-lift">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-white mb-4" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3 class="text-xl font-semibold">安全优先设计</h3>
+            <p class="mt-3 leading-7" style="color: var(--muted);">
+              将数据安全、身份权限、边界防护与访问治理纳入整体设计逻辑。
+            </p>
+          </div>
+
+          <div class="card rounded-3xl p-6 hover-lift">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-white mb-4" style="background: linear-gradient(135deg, #6366f1, #4f46e5);">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <h3 class="text-xl font-semibold">AI 落地导向</h3>
+            <p class="mt-3 leading-7" style="color: var(--muted);">
+              关注 AI 接入后的统一治理、成本控制、权限策略与业务集成。
+            </p>
+          </div>
+
+          <div class="card rounded-3xl p-6 hover-lift">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-white mb-4" style="background: linear-gradient(135deg, #0ea5e9, #06b6d4);">
+              <i class="fa-solid fa-people-group"></i>
+            </div>
+            <h3 class="text-xl font-semibold">本地理解与快速响应</h3>
+            <p class="mt-3 leading-7" style="color: var(--muted);">
+              深耕深圳企业生态，对出海与跨境场景的理解更贴近业务一线。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="products" class="anchor-offset py-20 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-4xl mx-auto fade-in-up">
+        <div class="inline-flex items-center px-3 py-1 rounded-full tag text-sm mb-4">
+          <i class="fa-solid fa-cubes mr-2 text-cyan-400"></i>产品与能力
+        </div>
+        <h2 class="section-title font-serif-cn text-3xl sm:text-4xl font-semibold">从单点产品到企业级能力矩阵</h2>
+        <p class="mt-5 text-base sm:text-lg leading-8" style="color: var(--muted);">
+          我们提供的不只是几款单品，而是一套支撑企业全球化经营的产品与服务能力矩阵，
+          让 AI、网络、安全、通信与基础设施形成协同。
+        </p>
+      </div>
+
+      <div class="mt-12 grid lg:grid-cols-3 gap-6">
+        <article class="card rounded-3xl p-7 hover-lift fade-in-up">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white text-xl" style="background: linear-gradient(135deg, #2563eb, #6366f1);">
+            <i class="fa-solid fa-brain"></i>
+          </div>
+          <h3 class="mt-6 text-2xl font-semibold">AI 接入与治理</h3>
+          <p class="mt-4 leading-7" style="color: var(--muted);">
+            聚合海内外主流 AI 模型与平台，支持统一接入、权限控制、调用管理、模型路由、成本优化与安全治理。
+          </p>
+        </article>
+
+        <article class="card rounded-3xl p-7 hover-lift fade-in-up">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white text-xl" style="background: linear-gradient(135deg, #06b6d4, #0ea5e9);">
+            <i class="fa-solid fa-network-wired"></i>
+          </div>
+          <h3 class="mt-6 text-2xl font-semibold">跨境网络与全球访问</h3>
+          <p class="mt-4 leading-7" style="color: var(--muted);">
+            提供跨境 SD-WAN、全球访问优化、多分支互联与海外 SaaS 加速，提升国际协同与业务稳定性。
+          </p>
+        </article>
+
+        <article class="card rounded-3xl p-7 hover-lift fade-in-up">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white text-xl" style="background: linear-gradient(135deg, #22c55e, #06b6d4);">
+            <i class="fa-brands fa-whatsapp"></i>
+          </div>
+          <h3 class="mt-6 text-2xl font-semibold">全球客户沟通</h3>
+          <p class="mt-4 leading-7" style="color: var(--muted);">
+            基于 WhatsApp Business API、WATI 等平台构建全球客户触达、客服协作与营销自动化能力。
+          </p>
+        </article>
+
+        <article class="card rounded-3xl p-7 hover-lift fade-in-up">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white text-xl" style="background: linear-gradient(135deg, #ef4444, #f97316);">
+            <i class="fa-solid fa-database"></i>
+          </div>
+          <h3 class="mt-6 text-2xl font-semibold">数据安全能力</h3>
+          <p class="mt-4 leading-7" style="color: var(--muted);">
+            面向数据流转、访问控制、权限边界与安全治理需求，帮助企业建立更清晰的数据保护体系。
+          </p>
+        </article>
+
+        <article class="card rounded-3xl p-7 hover-lift fade-in-up">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white text-xl" style="background: linear-gradient(135deg, #7c3aed, #2563eb);">
+            <i class="fa-solid fa-user-shield"></i>
+          </div>
+          <h3 class="mt-6 text-2xl font-semibold">信息安全能力</h3>
+          <p class="mt-4 leading-7" style="color: var(--muted);">
+            包括终端安全、身份与访问管理、边界防护、安全运营等，支撑全球业务运行的可信环境。
+          </p>
+        </article>
+
+        <article class="card rounded-3xl p-7 hover-lift fade-in-up">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-white text-xl" style="background: linear-gradient(135deg, #0f766e, #06b6d4);">
+            <i class="fa-solid fa-cloud"></i>
+          </div>
+          <h3 class="mt-6 text-2xl font-semibold">云与数字基础设施</h3>
+          <p class="mt-4 leading-7" style="color: var(--muted);">
+            连接全球云平台、企业业务系统与数字化服务，形成支撑全球经营的统一技术底座。
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="solutions" class="anchor-offset py-20 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-4 fade-in-up">
+          <div class="inline-flex items-center px-3 py-1 rounded-full tag text-sm mb-4">
+            <i class="fa-solid fa-layer-group mr-2 text-indigo-400"></i>解决方案
+          </div>
+          <h2 class="section-title font-serif-cn text-3xl sm:text-4xl font-semibold">以真实场景为中心，而不是孤立功能堆砌</h2>
+          <p class="mt-5 leading-8" style="color: var(--muted);">
+            我们围绕企业全球业务中的关键链路，设计更适合落地的解决方案组合。
+          </p>
+        </div>
+
+        <div class="lg:col-span-8 grid md:grid-cols-2 gap-5 fade-in-up">
+          <div class="card rounded-3xl p-6 hover-lift">
+            <h3 class="text-xl font-semibold">企业出海网络解决方案</h3>
+            <p class="mt-3 leading-7" style="color: var(--muted);">支持海外办公、国际会议、全球云访问与跨国团队协同。</p>
+          </div>
+          <div class="card rounded-3xl p-6 hover-lift">
+            <h3 class="text-xl font-semibold">海外客户沟通解决方案</h3>
+            <p class="mt-3 leading-7" style="color: var(--muted);">打通客户触达、客服响应、消息自动化与销售转化流程。</p>
+          </div>
+          <div class="card rounded-3xl p-6 hover-lift">
+            <h3 class="text-xl font-semibold">AI 企业接入解决方案</h3>
+            <p class="mt-3 leading-7" style="color: var(--muted);">快速接入多模型平台，并建立统一治理、调用与场景落地能力。</p>
+          </div>
+          <div class="card rounded-3xl p-6 hover-lift">
+            <h3 class="text-xl font-semibold">安全办公与全球协同</h3>
+            <p class="mt-3 leading-7" style="color: var(--muted);">强化访问控制、身份管理与全球办公安全边界。</p>
+          </div>
+          <div class="card rounded-3xl p-6 md:col-span-2 hover-lift">
+            <h3 class="text-xl font-semibold">跨境电商数字化解决方案</h3>
+            <p class="mt-3 leading-7" style="color: var(--muted);">面向运营、投放、客服、内容生产与全球访问场景提供一体化能力支持。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="industries" class="anchor-offset py-20 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto fade-in-up">
+        <div class="inline-flex items-center px-3 py-1 rounded-full tag text-sm mb-4">
+          <i class="fa-solid fa-diagram-project mr-2 text-blue-400"></i>行业场景
+        </div>
+        <h2 class="section-title font-serif-cn text-3xl sm:text-4xl font-semibold">服务多类全球化企业场景</h2>
+        <p class="mt-5 leading-8" style="color: var(--muted);">
+          从跨境电商到海外营销，从多分支机构到 AI 应用推进型企业，我们以场景驱动能力组合。
+        </p>
+      </div>
+
+      <div class="mt-12 grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div class="card rounded-3xl p-6 hover-lift fade-in-up"><h3 class="text-xl font-semibold">跨境电商企业</h3><p class="mt-3 leading-7" style="color: var(--muted);">关注广告平台访问、客户沟通、客服效率与内容生成能力。</p></div>
+        <div class="card rounded-3xl p-6 hover-lift fade-in-up"><h3 class="text-xl font-semibold">海外营销团队</h3><p class="mt-3 leading-7" style="color: var(--muted);">需要稳定访问海外平台并提升客户触达与营销协同效率。</p></div>
+        <div class="card rounded-3xl p-6 hover-lift fade-in-up"><h3 class="text-xl font-semibold">多分支机构企业</h3><p class="mt-3 leading-7" style="color: var(--muted);">需要总部与海外分支高质量互联及统一管理能力。</p></div>
+        <div class="card rounded-3xl p-6 hover-lift fade-in-up"><h3 class="text-xl font-semibold">AI 应用推进型企业</h3><p class="mt-3 leading-7" style="color: var(--muted);">希望更低复杂度接入 AI，并建立企业级治理框架。</p></div>
+        <div class="card rounded-3xl p-6 hover-lift fade-in-up"><h3 class="text-xl font-semibold">重视数据与信息安全的组织</h3><p class="mt-3 leading-7" style="color: var(--muted);">关注全球业务中的数据流转、权限边界与风险控制。</p></div>
+        <div class="card rounded-3xl p-6 hover-lift fade-in-up"><h3 class="text-xl font-semibold">全球化科技与服务企业</h3><p class="mt-3 leading-7" style="color: var(--muted);">需要统一的连接、沟通、安全与智能化支撑能力。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="whyus" class="anchor-offset py-20 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-5 fade-in-up">
+          <div class="inline-flex items-center px-3 py-1 rounded-full tag text-sm mb-4">
+            <i class="fa-solid fa-star mr-2 text-yellow-400"></i>为什么选择我们
+          </div>
+          <h2 class="section-title font-serif-cn text-3xl sm:text-4xl font-semibold">基于深圳，服务全球，理解企业出海的真实复杂性</h2>
+          <p class="mt-5 leading-8" style="color: var(--muted);">
+            我们不只是交付某个工具，而是帮助企业把连接、安全、AI 与客户沟通整合成一个能长期支撑业务增长的体系。
+          </p>
+        </div>
+
+        <div class="lg:col-span-7 grid sm:grid-cols-2 gap-5 fade-in-up">
+          <div class="card rounded-3xl p-6 hover-lift">
+            <div class="text-3xl font-bold gradient-text">01</div>
+            <h3 class="mt-4 text-xl font-semibold">深圳本地理解</h3>
+            <p class="mt-3 leading-7" style="color: var(--muted);">贴近深圳跨境、科技、制造与全球化业务团队的真实需求。</p>
+          </div>
+          <div class="card rounded-3xl p-6 hover-lift">
+            <div class="text-3xl font-bold gradient-text">02</div>
+            <h3 class="mt-4 text-xl font-semibold">全球业务视角</h3>
+            <p class="mt-3 leading-7" style="color: var(--muted);">从业务链路而非单点产品出发，设计连接、安全与智能方案。</p>
+          </div>
+          <div class="card rounded-3xl p-6 hover-lift">
+            <div class="text-3xl font-bold gradient-text">03</div>
+            <h3 class="mt-4 text-xl font-semibold">多能力一体化</h3>
+            <p class="mt-3 leading-7" style="color: var(--muted);">降低多供应商拼接成本，提升整体交付一致性与治理效率。</p>
+          </div>
+          <div class="card rounded-3xl p-6 hover-lift">
+            <div class="text-3xl font-bold gradient-text">04</div>
+            <h3 class="mt-4 text-xl font-semibold">更贴近增长实践</h3>
+            <p class="mt-3 leading-7" style="color: var(--muted);">兼顾业务增长、全球扩展与风险控制之间的平衡关系。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 fade-in-up">
+        <div class="card rounded-3xl p-7">
+          <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div>
+              <h3 class="text-2xl font-semibold">本地服务经验展示位</h3>
+              <p class="mt-2" style="color: var(--muted);">
+                标杆客户。
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div class="logo-chip rounded-2xl px-4 py-4 text-center font-semibold">华为</div>
+            <div class="logo-chip rounded-2xl px-4 py-4 text-center font-semibold">腾讯</div>
+            <div class="logo-chip rounded-2xl px-4 py-4 text-center font-semibold">比亚迪</div>
+            <div class="logo-chip rounded-2xl px-4 py-4 text-center font-semibold">大疆</div>
+            <div class="logo-chip rounded-2xl px-4 py-4 text-center font-semibold">顺丰</div>
+            <div class="logo-chip rounded-2xl px-4 py-4 text-center font-semibold">深圳出海企业</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="partners" class="anchor-offset py-20 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-4xl mx-auto fade-in-up">
+        <div class="inline-flex items-center px-3 py-1 rounded-full tag text-sm mb-4">
+          <i class="fa-solid fa-handshake-angle mr-2 text-cyan-400"></i>合作生态
+        </div>
+        <h2 class="section-title font-serif-cn text-3xl sm:text-4xl font-semibold">连接全球平台生态与本地基础设施能力</h2>
+        <p class="mt-5 text-base sm:text-lg leading-8" style="color: var(--muted);">
+          围绕全球通信、云平台、AI、网络与安全生态，形成更完整的解决方案协同能力。
+        </p>
+      </div>
+
+      <div class="mt-12 grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div class="card rounded-3xl p-6 hover-lift fade-in-up">
+          <div class="text-sm text-blue-400">全球平台生态</div>
+          <h3 class="mt-3 text-xl font-semibold">Meta / WATI / Google / Microsoft / Amazon</h3>
+          <p class="mt-3 leading-7" style="color: var(--muted);">覆盖全球沟通、云平台、应用接入与国际业务基础能力。</p>
+        </div>
+        <div class="card rounded-3xl p-6 hover-lift fade-in-up">
+          <div class="text-sm text-cyan-400">云与网络生态</div>
+          <h3 class="mt-3 text-xl font-semibold">阿里云 / 腾讯云 / 网宿</h3>
+          <p class="mt-3 leading-7" style="color: var(--muted);">支撑本地与国际混合业务环境中的云、网络与访问优化需求。</p>
+        </div>
+        <div class="card rounded-3xl p-6 hover-lift fade-in-up">
+          <div class="text-sm text-indigo-400">安全生态</div>
+          <h3 class="mt-3 text-xl font-semibold">深信服等安全厂商</h3>
+          <p class="mt-3 leading-7" style="color: var(--muted);">围绕终端、边界、身份、访问与安全治理能力构建可信环境。</p>
+        </div>
+      </div>
+
+      <div class="mt-10 fade-in-up">
+        <div class="card rounded-3xl p-7">
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4 text-center">
+            <div class="logo-chip rounded-2xl px-3 py-4 font-semibold">Meta</div>
+            <div class="logo-chip rounded-2xl px-3 py-4 font-semibold">WATI</div>
+            <div class="logo-chip rounded-2xl px-3 py-4 font-semibold">Google</div>
+            <div class="logo-chip rounded-2xl px-3 py-4 font-semibold">Microsoft</div>
+            <div class="logo-chip rounded-2xl px-3 py-4 font-semibold">Amazon</div>
+            <div class="logo-chip rounded-2xl px-3 py-4 font-semibold">阿里云</div>
+            <div class="logo-chip rounded-2xl px-3 py-4 font-semibold">腾讯云</div>
+            <div class="logo-chip rounded-2xl px-3 py-4 font-semibold">网宿</div>
+            <div class="logo-chip rounded-2xl px-3 py-4 font-semibold">深信服</div>
+            <div class="logo-chip rounded-2xl px-3 py-4 font-semibold">全球云平台</div>
+            <div class="logo-chip rounded-2xl px-3 py-4 font-semibold">AI 平台</div>
+            <div class="logo-chip rounded-2xl px-3 py-4 font-semibold">通信生态</div>
+            <div class="logo-chip rounded-2xl px-3 py-4 font-semibold">网络生态</div>
+            <div class="logo-chip rounded-2xl px-3 py-4 font-semibold">安全生态</div>
+            <div class="logo-chip rounded-2xl px-3 py-4 font-semibold">出海服务</div>
+            <div class="logo-chip rounded-2xl px-3 py-4 font-semibold">企业应用</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="anchor-offset py-20 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-5 fade-in-up">
+          <div class="inline-flex items-center px-3 py-1 rounded-full tag text-sm mb-4">
+            <i class="fa-solid fa-envelope-open-text mr-2 text-blue-400"></i>联系我们
+          </div>
+          <h2 class="section-title font-serif-cn text-3xl sm:text-4xl font-semibold">欢迎与我们沟通企业出海与数字基础设施建设需求</h2>
+          <p class="mt-5 leading-8" style="color: var(--muted);">
+            如需商务咨询，可通过电话或邮箱与我们联系。
+          </p>
+        </div>
+
+        <div class="lg:col-span-7 fade-in-up">
+          <div class="grid md:grid-cols-3 gap-5">
+            <div class="card contact-tile rounded-3xl p-6 hover-lift">
+              <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-white mb-4" style="background: linear-gradient(135deg, #2563eb, #06b6d4);">
+                <i class="fa-solid fa-phone"></i>
+              </div>
+              <div class="text-sm" style="color: var(--muted);">联系电话</div>
+              <div class="mt-2 text-xl font-semibold">13418779173</div>
+            </div>
+
+            <div class="card contact-tile rounded-3xl p-6 hover-lift">
+              <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-white mb-4" style="background: linear-gradient(135deg, #06b6d4, #0ea5e9);">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div class="text-sm" style="color: var(--muted);">商务邮箱</div>
+              <div class="mt-2 text-xl font-semibold break-all">tzy@xingyany.com</div>
+            </div>
+
+            <div class="card contact-tile rounded-3xl p-6 hover-lift">
+              <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-white mb-4" style="background: linear-gradient(135deg, #6366f1, #2563eb);">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div class="text-sm" style="color: var(--muted);">服务区域</div>
+              <div class="mt-2 text-xl font-semibold">基于深圳，服务全球</div>
+            </div>
+          </div>
+
+          <div class="mt-6 card rounded-3xl p-7">
+            <div class="text-sm text-blue-400">咨询方向</div>
+            <div class="mt-3 grid md:grid-cols-2 gap-4">
+              <div class="rounded-2xl p-4" style="background: rgba(37,99,235,0.08); border: 1px solid rgba(96,165,250,0.14);">
+                企业出海网络 / 跨境 SD-WAN / 全球访问优化
+              </div>
+              <div class="rounded-2xl p-4" style="background: rgba(6,182,212,0.08); border: 1px solid rgba(34,211,238,0.14);">
+                AI 接入 / 多模型治理 / 企业智能化集成
+              </div>
+              <div class="rounded-2xl p-4" style="background: rgba(99,102,241,0.08); border: 1px solid rgba(129,140,248,0.14);">
+                WhatsApp Business / WATI / 海外客户沟通
+              </div>
+              <div class="rounded-2xl p-4" style="background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.14);">
+                数据安全 / 信息安全 / 全球协同办公安全
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-10 border-t" style="border-color: var(--border);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <div class="font-semibold">星言云科技</div>
+          <div class="text-sm mt-1" style="color: var(--muted);">
+            基于深圳，服务全球 ｜ 企业出海、全球网络、AI 接入、数据安全与信息安全
+          </div>
+        </div>
+        <div class="text-sm" style="color: var(--muted);">© 2026 星言云科技. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default',
+      securityLevel: 'loose'
+    });
+
+    (function () {
+      const root = document.documentElement;
+      const toggleBtn = document.getElementById('themeToggle');
+      const storageKey = 'xingyany-theme';
+
+      function applyTheme(theme) {
+        if (theme === 'dark') {
+          root.classList.add('dark');
+          toggleBtn.innerHTML = '<i class="fa-regular fa-sun mr-1"></i><span class="hidden sm:inline">浅色</span>';
+        } else {
+          root.classList.remove('dark');
+          toggleBtn.innerHTML = '<i class="fa-regular fa-moon mr-1"></i><span class="hidden sm:inline">深色</span>';
+        }
+      }
+
+      const saved = localStorage.getItem(storageKey);
+      if (saved) {
+        applyTheme(saved);
+      } else {
+        applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      }
+
+      toggleBtn.addEventListener('click', function () {
+        const isDark = root.classList.contains('dark');
+        const next = isDark ? 'light' : 'dark';
+        localStorage.setItem(storageKey, next);
+        applyTheme(next);
+        setTimeout(() => location.reload(), 120);
+      });
+
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (!localStorage.getItem(storageKey)) {
+          applyTheme(e.matches ? 'dark' : 'light');
+          setTimeout(() => location.reload(), 120);
+        }
+      });
+    })();
+
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
